@@ -3,19 +3,22 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 
 function App() {
 
-  const [nombres, setNombres] = useState("");
-  const [apellidos, setApellidos] = useState("");
-  const [mensaje, setMensaje] = useState("");
+  const [numero1, setNumero1] = useState("");
+  const [numero2, setNumero2] = useState("");
+  const [resultado, setResultado] = useState("");
 
-  const saludar = async () => {
-    const resp = await fetch("http://localhost:8086/api/saludo", {
+  const sumar = async () => {
+    const resp = await fetch("http://localhost:8086/api/sumar", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ nombres, apellidos })
+      body: JSON.stringify({ 
+        numero1, 
+        numero2 
+      })
     });
 
-    const data = await resp.text();
-    setMensaje(data);
+    const data = await resp.text(); // o .json si regresaras JSON
+    setResultado(data);
   };
 
   return (
@@ -27,32 +30,34 @@ function App() {
       </nav>
 
       <div className="container mt-5">
-        <h3>Ingresa tus datos</h3>
+        <h3>Calculadora de Suma</h3>
 
         <div className="mt-4">
-          <label>Nombres</label>
+          <label>Número 1</label>
           <input
+            type="number"
             className="form-control"
-            value={nombres}
-            onChange={(e) => setNombres(e.target.value)}
+            value={numero1}
+            onChange={(e) => setNumero1(e.target.value)}
           />
 
-          <label className="mt-3">Apellidos</label>
+          <label className="mt-3">Número 2</label>
           <input
+            type="number"
             className="form-control"
-            value={apellidos}
-            onChange={(e) => setApellidos(e.target.value)}
+            value={numero2}
+            onChange={(e) => setNumero2(e.target.value)}
           />
 
           <button
             className="btn btn-primary mt-4"
-            onClick={saludar}
+            onClick={sumar}
           >
-            Saludar
+            Sumar
           </button>
 
-          {mensaje && (
-            <div className="alert alert-success mt-4">{mensaje}</div>
+          {resultado && (
+            <div className="alert alert-info mt-4">{resultado}</div>
           )}
         </div>
       </div>

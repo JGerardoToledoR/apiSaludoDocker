@@ -11,11 +11,9 @@ import java.util.Map;
         methods = {RequestMethod.GET, RequestMethod.POST, RequestMethod.OPTIONS})
 public class SaludoController {
 
-    @PostMapping("/saludo")
-    public String saludar(@RequestBody Map<String, String> body){
-        String nombres = body.get("nombres");
-        String apellidos = body.get("apellidos");
-        return "Hola " + nombres + " " + apellidos;
+    @PostMapping("/sumar")
+    public int sumar(@RequestBody Map<String, Integer> body) {
+        return body.get("numero1") + body.get("numero2");
     }
 
 }
