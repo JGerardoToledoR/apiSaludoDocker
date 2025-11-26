@@ -1,0 +1,22 @@
+version: "3.8"
+
+services:
+  operations:
+    build: ./servidor
+    image: operations:v1.0.2
+    container_name: exu2-operaciones
+    restart: always
+    ports:
+      - "8086:8081"
+
+
+  client:
+    build: ./cliente
+    image: client:v1.0.2
+    container_name: exu2-cliente
+    restart: always
+    ports:
+      - "5174:80"
+    depends_on:
+      - operations
+
